@@ -1,0 +1,40 @@
+#cover {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #8b0000;
+  color: white;
+  text-align: center;
+  font-family: "Georgia", serif;
+}
+
+.cover-container {
+  padding: 2em;
+}
+
+#cover h1 {
+  font-size: 2.5em;
+  margin-bottom: 2em;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+#cover h2 {
+  margin-bottom: 1em;
+}
+
+#cover h3 {
+  margin-bottom: 3em;
+}
+
+.author {
+  font-size: 1.5em;
+  margin-bottom: 1em;
+  font-style: italic;
+}
+
+.publisher {
+  font-size: 0.9em;
+  opacity: 0.8;
+}

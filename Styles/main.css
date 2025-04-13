@@ -1,0 +1,62 @@
+body {
+  font-family: "Georgia", serif;
+  line-height: 1.6;
+  margin: 2em auto;
+  max-width: 800px;
+  padding: 0 1em;
+}
+
+h1 {
+  color: #8b0000;
+  border-bottom: 1px solid #ddd;
+  text-transform: uppercase;
+  padding-bottom: 0.3em;
+  padding-top: 1em;
+  text-align: center;
+}
+h2 {
+  color: #8b0000;
+  text-transform: uppercase;
+  padding-top: 1em;
+}
+h3 {
+  color: #8b0000;
+  padding-top: 1em;
+}
+
+blockquote {
+  border-left: 3px solid #8b0000;
+  padding-left: 1em;
+  margin-left: 1em;
+  font-style: italic;
+}
+
+p {
+  display: block;
+  text-align: justify;
+  text-indent: 1em;
+  margin: 0;
+  margin-bottom: 0.25em;
+}
+
+p.note {
+  border-top: 1px solid #8b0000; /* Red horizontal line (Marxist theme) */
+  margin: 1.5em 0 1em 0;         /* Spacing above/below */
+  padding: 0.75em 0 0 0;         /* Padding to separate from line */
+  font-size: 0.9em;              /* Slightly smaller text */
+  font-style: normal;            /* Reset italic if needed */
+  line-height: 1.5;              /* Improved readability */
+}
+
+/* Footnote links styling */
+p.note a {
+  text-decoration: none;         /* Remove underline */
+  color: #8b0000;               /* Red to match theme */
+  font-weight: bold;            /* Bold numbers */
+  padding: 0 0.25em;            /* Space around numbers */
+}
+
+/* Hover effect for footnote links */
+p.note a:hover {
+  text-decoration: underline;    /* Underline on hover */
+}

@@ -1,0 +1,48 @@
+/* Navigation Styles */
+nav#toc {
+  font-family: "Georgia", serif;
+  line-height: 1.6;
+  padding: 1em;
+}
+
+nav#toc h1 {
+  text-align: center;
+  color: #8b0000; /* Marxist red */
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.5em;
+  margin-bottom: 1em;
+}
+
+/* Remove all list markers and numbering */
+nav#toc ul,
+nav#toc ol,
+nav#toc li {
+  color: #8b0000;               /* Red to match theme */
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 0.5em
+}
+
+/* Chapter styling */
+.toc-chapter {
+  color: #8b0000;               /* Red to match theme */
+    font-weight: bold;
+    margin-top: 0.5em;
+}
+
+/* Subsection indentation */
+.toc-sublist {
+	padding-left: 1em !important;
+	margin-bottom: 1em !important;
+}
+
+/* Link styling */
+.toc-item a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.toc-item a:hover {
+    text-decoration: underline;
+}
