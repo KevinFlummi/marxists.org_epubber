@@ -139,10 +139,14 @@ a:visited{color:#a44646}
 #output {
     white-space: pre-wrap;
     font-family: monospace;
-    background: #f5f5f5;
+	  color:#d8d4cf;
+	  background:#131516;
+    border-color:#000000;
     padding: 10px;
     border-radius: 5px;
     height: 300px;
     overflow-y: auto;
 }
 .hidden { display: none; }
+#download-btn { display: none; margin-top: 20px; }
+.spinner { margin: 20px 0; }
