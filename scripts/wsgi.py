@@ -80,7 +80,7 @@ def process(url):
 @limiter.limit("20 per hour")
 def download(file_path):
     return send_file(
-        file_path,
+        os.path.join("..", file_path),
         as_attachment=True,
         download_name=os.path.basename(file_path)
     )
