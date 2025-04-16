@@ -55,7 +55,7 @@ def process(url):
         def process_task():
             try:
                 file_path = from_url(url)
-                output_queue.put(f"FILE_READY:../{file_path}")
+                output_queue.put(f"FILE_READY:{file_path}")
             except Exception as e:
                 output_queue.put(f"ERROR:{str(e)}")
 
