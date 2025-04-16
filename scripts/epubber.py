@@ -146,8 +146,8 @@ def create_epub(content_dir='.'):
                         epub.write(full_path, arc_path)
 
     rel_epub_path = Path(epub_path).relative_to(content_dir)
-    print(f"Successfully created EPUB: {rel_epub_path}")
-    return rel_epub_path.resolve()
+    print(f"Successfully created EPUB: {epub_path}")
+    return epub_path
 
 if __name__ == '__main__':
     create_epub()
