@@ -9,6 +9,10 @@ from queue import Queue
 
 from processer import from_url  # Import your existing function
 
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
+limiter = Limiter(app=app, key_func=get_remote_address)
+
 script_path = Path(__file__).parent.resolve()
 root_path = script_path.parent.resolve()
 app = Flask(__name__, template_folder=os.path.join(root_path, 'webinterface'))
@@ -75,6 +79,13 @@ def download(file_path):
         as_attachment=True,
         download_name=os.path.basename(file_path)
     )
+
+@app.after_request
+def add_security_headers(response):
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    response.headers['X-Frame-Options'] = 'SAMEORIGIN'
+    response.headers['X-XSS-Protection'] = '1; mode=block'
+    return response
 
 if __name__ == '__main__':
     app.run()
