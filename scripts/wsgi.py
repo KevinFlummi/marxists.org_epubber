@@ -15,7 +15,7 @@ import redis
 
 script_path = Path(__file__).parent.resolve()
 root_path = script_path.parent.resolve()
-app = Flask(__name__, template_folder=os.path.join(root_path, 'webinterface'))
+app = Flask(__name__, template_folder=os.path.join(root_path, 'webinterface'), static_folder=os.path.join(root_path, 'webinterface'))
 redis_client = redis.Redis(host='localhost', port=6379, db=0)
 limiter = Limiter(app=app, key_func=get_remote_address, storage_uri="redis://localhost:6379",default_limits=["200 per day", "50 per hour"])
 

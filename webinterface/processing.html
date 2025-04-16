@@ -1,22 +1,32 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Processing...</title>
-    <style>
-        #output {
-            white-space: pre-wrap;
-            font-family: monospace;
-            background: #f5f5f5;
-            padding: 10px;
-            border-radius: 5px;
-            height: 300px;
-            overflow-y: auto;
-        }
-        #download-btn { display: none; margin-top: 20px; }
-        .spinner { margin: 20px 0; }
-    </style>
-</head>
-<body>
+ <head>
+	<title>K. Corporation</title>
+	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.02"/>
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="icon" type="image/png" sizes="192x192"  href="android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+    </head>
+    <body>
+	<nav>
+		<label class="logo"><a href="https://k-corporation.org">K. Corporation</a></label>
+		<ul id="bigmenu">
+			<li><a class="active" href="https://books.k-corporation.org">Parser</a></li>
+			<li><a href="https://books.k-corporation.org/library">Library</a></li>
+		</ul>
+		<ul id="smallmenu">
+			<div class="container">
+				<div class="menu">
+				<div class="emptybar"></div><div class="bar"></div><div class="emptybar"></div><div class="bar"></div><div class="emptybar"></div><div class="bar"></div><div class="emptybar"></div>
+				<div class="dropdown-content">
+					<a href="https://books.k-corporation.org">Parser</a>
+					<a href="https://k-corporation.org/library">Library</a>
+				</div>
+				</div>
+			</div>
+		</ul>
+	</nav>
     <h1>Processing your URL...</h1>
     <div class="spinner">⏳ Processing, please wait...</div>
     <div id="output" style="white-space: pre-wrap; font-family: monospace;"></div>
