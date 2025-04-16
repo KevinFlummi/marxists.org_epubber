@@ -139,12 +139,11 @@ a:visited{color:#a44646}
 #output {
     white-space: pre-wrap;
     font-family: monospace;
+    font-size: 14px;
 	  color:#d8d4cf;
-	  background:#131516;
-    border-color:#000000;
+	  background:#000000;
     padding: 10px;
     border-radius: 5px;
-    border-style: sold;
     height: 300px;
     overflow-y: auto;
 }
