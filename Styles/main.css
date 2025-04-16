@@ -12,16 +12,18 @@ h1 {
   text-transform: uppercase;
   padding-bottom: 0.3em;
   padding-top: 1em;
-  text-align: center;
+  text-align: left;
 }
 h2 {
   color: #8b0000;
   text-transform: uppercase;
   padding-top: 1em;
+  text-align: left;
 }
 h3 {
   color: #8b0000;
   padding-top: 1em;
+  text-align: left;
 }
 
 blockquote {

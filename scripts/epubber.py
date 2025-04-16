@@ -3,7 +3,58 @@ import zipfile
 from pathlib import Path
 import xml.etree.ElementTree as ET
 import re
+import time
 
+def limit_folder_size(output_dir: Path, max_size_gb: float = 1.0, min_size_gb: float = 0.9):
+    """
+    Deletes oldest files in `output_dir` if folder size > `max_size_gb` GB
+    until size < `min_size_gb` GB.
+    """
+    print("Checking if library has enough space left...")
+    max_size_bytes = max_size_gb * 1024**3  # Convert GB to bytes
+    min_size_bytes = min_size_gb * 1024**3
+
+    # Get folder size recursively
+    def get_folder_size(folder: Path) -> int:
+        return sum(f.stat().st_size for f in folder.glob('**/*') if f.is_file())
+
+    current_size = get_folder_size(output_dir)
+
+    if current_size <= max_size_bytes:
+        print(f"Library has enough room left.")
+        return
+
+    print(f"Folder size ({current_size/1024**3:.2f} GB) exceeds {max_size_gb} GB. Cleaning...")
+
+    # Get all files with their last modification time
+    files = []
+    for f in output_dir.glob('*'):
+        if f.is_file():
+            files.append((f.stat().st_mtime, f))
+
+    # Sort files by oldest first
+    files.sort(key=lambda x: x[0])
+
+    # Delete oldest files until under threshold
+    deleted_count = 0
+    for mtime, file in files:
+        if current_size <= min_size_bytes:
+            break
+
+        file_size = file.stat().st_size
+        try:
+            file.unlink()  # Delete the file
+            current_size -= file_size
+            deleted_count += 1
+            print(f"Deleted: {file.name} ({file_size/1024**2:.2f} MB)")
+        except Exception as e:
+            print(f"Error deleting {file.name}: {e}")
+
+    print(f"Deleted {deleted_count} files. New size: {current_size/1024**3:.2f} GB")
+
+# Usage example:
+output_dir = Path("/path/to/your/folder")
+limit_folder_size(output_dir)
 def get_metadata_from_opf(opf_path):
     """Extract title and author from content.opf"""
     try:
@@ -26,6 +77,7 @@ def get_metadata_from_opf(opf_path):
         raise ValueError(f"Could not parse metadata from {opf_path}: {str(e)}")
 
 def create_epub(content_dir='.'):
+    print("Creating epub from reformatted files...")
     """Package an EPUB with automatic naming"""
     # Required EPUB paths
     paths = {
@@ -44,9 +96,11 @@ def create_epub(content_dir='.'):
     title, author = get_metadata_from_opf(paths['content_opf'])
 
     # Create output directory structure
-    output_dir = Path(os.path.join("library", author))
+    output_dir = Path(os.path.join(content_dir, "library"))
     output_dir.mkdir(exist_ok=True)
-    epub_path = output_dir / f"{title}.epub"
+    epub_path = output_dir / f"{title} - {author}.epub"
+
+    limit_folder_size(output_dir, 1.0, 0.9)
 
     # Create EPUB (ZIP with specific structure)
     with zipfile.ZipFile(epub_path, 'w', zipfile.ZIP_DEFLATED) as epub:
@@ -77,7 +131,7 @@ def create_epub(content_dir='.'):
         if os.path.exists(paths['text_dir']):
             for root, _, files in os.walk(paths['text_dir']):
                 for file in files:
-                    if file.endswith(('.xhtml', '.html')):
+                    if file.endswith(('.xhtml', '.html')) and not file.startswith('index'):
                         full_path = os.path.join(root, file)
                         arc_path = os.path.relpath(full_path, content_dir)
                         epub.write(full_path, arc_path)
@@ -91,7 +145,9 @@ def create_epub(content_dir='.'):
                         arc_path = os.path.relpath(full_path, content_dir)
                         epub.write(full_path, arc_path)
 
-    print(f"Successfully created EPUB: {epub_path}")
+    rel_epub_path = Path(epub_path).relative_to(content_dir)
+    print(f"Successfully created EPUB: {rel_epub_path}")
+    return rel_epub_path
 
 if __name__ == '__main__':
     create_epub()

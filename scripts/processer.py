@@ -5,13 +5,16 @@ from downloader import download_book
 from reformat import reformat
 from epubber import create_epub
 
-def main(base_url):
-    download_book(base_url)
-
+def from_url(base_url):
     script_dir = Path(__file__).parent.resolve()
-    reformat(script_dir, os.path.join("Text", "index.html"))
+    root_dir = script_dir.parent.resolve()
 
-    create_epub()
+    download_book(root_dir, base_url)
+
+    reformat(script_dir, os.path.join(root_dir, "Text", "index.html"))
+
+    fpath = create_epub(root_dir)
+    return fpath
 
 
 if __name__ == "__main__":
@@ -20,4 +23,4 @@ if __name__ == "__main__":
         sys.exit(1)
 
     base_url = sys.argv[1]
-    main(base_url)
+    from_url(base_url)

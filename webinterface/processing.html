@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Processing...</title>
+    <style>
+        #output {
+            white-space: pre-wrap;
+            font-family: monospace;
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            height: 300px;
+            overflow-y: auto;
+        }
+        #download-btn { display: none; margin-top: 20px; }
+        .spinner { margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <h1>Processing your URL...</h1>
+    <div class="spinner">⏳ Processing, please wait...</div>
+    <div id="output" style="white-space: pre-wrap; font-family: monospace;"></div>
+    <a id="download-btn" href="#" class="button">Download File</a>
+
+    <script>
+        const outputEl = document.getElementById('output');
+        const downloadBtn = document.getElementById('download-btn');
+        const spinner = document.querySelector('.spinner');
+
+        const url = "{{ url }}";
+        const eventSource = new EventSource(`/process/${encodeURIComponent(url)}`);
+
+        eventSource.onmessage = function(e) {
+            const data = e.data;
+
+            if (data.startsWith("FILE_READY:")) {
+                const filePath = data.split(":")[1];
+                downloadBtn.href = `/download/${encodeURIComponent(filePath)}`;
+                downloadBtn.style.display = 'inline-block';
+                spinner.style.display = 'none';
+                eventSource.close();
+            }
+            else if (data.startsWith("ERROR:")) {
+                outputEl.innerHTML += data.split(":")[1] + '\n';
+                spinner.innerHTML = "❌ Processing failed";
+                eventSource.close();
+            }
+            else {
+                outputEl.innerHTML += data;
+                outputEl.scrollTop = outputEl.scrollHeight;
+            }
+        };
+
+        eventSource.onerror = function() {
+            spinner.innerHTML = "❌ Connection error";
+            eventSource.close();
+        };
+    </script>
+</body>
+</html>

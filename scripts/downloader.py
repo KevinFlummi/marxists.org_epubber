@@ -11,7 +11,7 @@ def sanitize_filename(filename):
     keep_chars = (' ', '.', '_', '-')
     return "".join(c if c.isalnum() or c in keep_chars else "" for c in filename)
 
-def download_book(base_url):
+def download_book(root_dir, base_url):
     try:
         # Download the main page
         print(f"Downloading main page: {base_url}")
@@ -26,7 +26,7 @@ def download_book(base_url):
         soup = BeautifulSoup(html, 'html.parser')
 
         # Get page title for folder name
-        folder_name = "Text"
+        folder_name = os.path.join(root_dir, "Text")
 
         # Create output directory
         os.makedirs(folder_name, exist_ok=True)
@@ -98,4 +98,5 @@ if __name__ == "__main__":
         sys.exit(1)
 
     base_url = sys.argv[1]
-    download_book(base_url)
+    root_dir = os.path.join(__file__, "..")
+    download_book(root_dir, base_url)

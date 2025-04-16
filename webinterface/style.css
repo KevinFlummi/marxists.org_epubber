@@ -1,0 +1,148 @@
+* {
+	scrollbar-color: #454a4d #202324;
+}
+:root {
+	--accent-color:#7b1616;
+}
+@media (max-width: 714px){
+	#bigmenu{display: none;}
+	#smallmenu{display: block;}
+	main{
+		padding-left: 10px;
+		padding-right: 10px;
+		width: 90%;
+	}
+}
+@media (min-width: 715px){
+	#bigmenu{display: block;}
+	#smallmenu{display: none;}
+}
+body{
+	margin:auto;
+	line-height:1.6;
+	font-size:20px;
+	background:#131516;
+	color:#d8d4cf;
+}
+main{
+	max-width:915px;
+	width: 90%;
+	position: absolute;
+	left: 0;
+	right: 0;
+	margin-left: auto;
+	margin-right: auto;
+	overflow: hidden;
+}
+nav *{
+	padding: 0;
+	margin: 0;
+	text-decoration: none;
+	list-style: none;
+	box-sizing: border-box;
+}
+nav{
+	background: var(--accent-color);
+	height: 80px;
+	width: 100%;
+}
+nav label.logo{
+	color: #d8d4cf;
+	font-size:35px;
+	line-height: 80px:
+	padding: 0 100px;
+	font-weight: bold;
+	margin: 0 20px;
+	position: absolute;
+	top: 12px;
+	cursor: pointer;
+}
+nav label.logo a:hover{
+	background: var(--accent-color);
+}
+nav ul{
+	float: right;
+	margin-right: 20px;
+}
+nav ul li{
+	display: inline-block;
+	line-height: 80px;
+	margin: 0 5px;
+}
+nav ul li a{
+	color: #d8d4cf;
+	font-size: 17px;
+	padding: 7px 13px;
+	border-radius: 3px;
+	text-transform: uppercase;
+}
+nav a.active, nav a:hover{
+	background: #3d0909;
+	transition: .5s;
+}
+nav a:visited, nav a:link{color: #d8d4cf}
+nav div .bar{
+	width: 35px;
+	height: 5px;
+	margin: 0 auto;
+	background-color: #d8d4cf;
+}
+nav div .emptybar{
+	width: 35px;
+	height: 6px;
+	margin: 0 auto;
+	background-color: var(--accent-color);
+}
+nav .container{
+	display: inline-block;
+	padding-top: 20px;
+	width: 160px;
+}
+.dropdown-content{
+	display: none;
+	float: right;
+	padding-right: 0px;
+	background-color: #521818;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	position: relative;
+	z-index: 1;
+}
+.dropdown-content a{
+	float: none;
+	font-size: 22px;
+	color: black;
+	padding: 12px 8px;
+	text-decoration: none;
+	display: block;
+	text-align: right;
+}
+.menu{
+	margin-left: 111px;
+	width: 51px;
+	height: 41px;
+	cursor: pointer;
+}
+.menu:hover .bar{
+	background-color: #332244;
+	transition: .5s;
+}
+.menu:hover .dropdown-content{
+	display: block;
+}
+h1,h2,h3{line-height:1.2}
+a:link{color: var(--accent-color)}
+a:visited{color:#a44646}
+
+
+
+#output {
+    white-space: pre-wrap;
+    font-family: monospace;
+    background: #f5f5f5;
+    padding: 10px;
+    border-radius: 5px;
+    height: 300px;
+    overflow-y: auto;
+}
+.hidden { display: none; }

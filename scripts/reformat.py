@@ -113,6 +113,13 @@ def clean_legacy_html(html_content):
             tag.attrs = {k: v for k, v in tag.attrs.items()
                         if k in attrs_to_keep}
 
+    # 2.3 Remove external links and file links
+    for a in soup.find_all('a', href=True):
+        href = a['href']
+        # Remove if href starts with http or ends with .htm/.html
+        if href.startswith(('http://', 'https://')) or '.htm' in href.lower():
+            a.unwrap()
+
     # 2.5. Remove <p class="footer"> and <p class="next"> elements entirely
     for class_name in ['footer', 'next', 'updat', ]:
         for tag in soup.find_all('p', class_=class_name):
@@ -205,11 +212,10 @@ def reformat(script_dir, input_file):
         title = title_elem.text
         title = title.replace("\n", "")
         subtitle = None
-        potential_subtitle = title_elem.next_sibling
-        print(potential_subtitle)
-        if potential_subtitle.name in ['h1', 'h2', 'h3', 'h4']:
+        potential_subtitle = title_elem.find_next(['h1', 'h2', 'h3', 'h4'])
+        if potential_subtitle:
             subtitle = potential_subtitle.text
-            if subtitle == f"({date})":
+            if  f"({date})" in subtitle:
                 subtitle = None
         output_path = Path(os.path.join(folder_path, "titlepage.xhtml"))
         template_path = Path(os.path.join(script_dir, "..", "templates", "titlepage.xhtml"))
@@ -217,7 +223,7 @@ def reformat(script_dir, input_file):
         generate_titlepage(template_path, output_path, title, author, date, subtitle)
 
         # Find all links between the markers
-        start_marker = soup.find('p')
+        start_marker = soup.select_one('p.info, p.information, p.fst')
         end_marker = soup.find('p', {'class': 'updat'})
         # Collect all unique links between these markers
         nav_dict = {}
@@ -298,7 +304,7 @@ def reformat(script_dir, input_file):
         manifest = []
         spine = []
         for i in range(1, len(sections)+1):
-            if f"Subtitle{i:03d}.xhtml" in os.listdir("Text"):
+            if f"Subtitle{i:03d}.xhtml" in os.listdir(folder_path):
                 mani = f'    <item id="Subtitle{i:03d}.xhtml" href="Text/Subtitle{i:03d}.xhtml" media-type="application/xhtml+xml"/>'
                 spi = f'    <itemref idref="Subtitle{i:03d}.xhtml"/>'
                 manifest.append(mani)
