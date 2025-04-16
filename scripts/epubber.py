@@ -96,7 +96,7 @@ def create_epub(content_dir='.'):
     title, author = get_metadata_from_opf(paths['content_opf'])
 
     # Create output directory structure
-    output_dir = Path(os.path.join(content_dir, "library"))
+    output_dir = Path(os.path.join(content_dir, "files"))
     output_dir.mkdir(exist_ok=True)
     epub_path = output_dir / f"{title} - {author}.epub"
 
@@ -146,8 +146,8 @@ def create_epub(content_dir='.'):
                         epub.write(full_path, arc_path)
 
     rel_epub_path = Path(epub_path).relative_to(content_dir)
-    print(f"Successfully created EPUB: {epub_path}")
-    return epub_path
+    print(f"Successfully created EPUB: {rel_epub_path}")
+    return rel_epub_path
 
 if __name__ == '__main__':
     create_epub()
