@@ -215,7 +215,7 @@ def reformat(script_dir, input_file):
         potential_subtitle = title_elem.find_next(['h1', 'h2', 'h3', 'h4'])
         if potential_subtitle:
             subtitle = potential_subtitle.text
-            if  f"({date})" in subtitle:
+            if  german_fuzzy_match(subtitle, date, 50):
                 subtitle = None
         output_path = Path(os.path.join(folder_path, "titlepage.xhtml"))
         template_path = Path(os.path.join(script_dir, "..", "templates", "titlepage.xhtml"))
