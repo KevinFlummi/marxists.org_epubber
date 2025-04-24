@@ -1,16 +1,17 @@
 #cover {
-  height: 100vh;
+  height: 90vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #8b0000;
   color: white;
   text-align: center;
   font-family: "Georgia", serif;
+  padding: 2em 1em;
 }
 
 .cover-container {
-  padding: 2em;
+  padding: 12em 1em;
+  background-color: #8b0000;
 }
 
 #cover h1 {

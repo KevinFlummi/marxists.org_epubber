@@ -25,10 +25,16 @@ nav#toc li {
 }
 
 /* Chapter styling */
-.toc-chapter {
+.toc-chapter a {
     color: #8b0000;               /* Red to match theme */
     font-weight: bold;
+    text-decoration: none;
     margin-top: 0.5em;
+}
+
+.toc-chapter a:hover {
+    color: #8b0000;
+    text-decoration: underline;
 }
 
 /* Subsection indentation */
